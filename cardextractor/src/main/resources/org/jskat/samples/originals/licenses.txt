@@ -1,0 +1,19 @@
+* dondorf.svg
+* ornamental.svg
+* tango.svg
+  * from Aisleriot
+  * GNU General Public License Version 3 or later
+
+* svg-cards.svg
+  * from David Bellot
+  * GNU Lesser General Public License 2.1
+
+* tigullio-modern.svg
+* tigullio-bridge.svg
+* william-tell.svgz
+  * from Extra Card Decks for KDE Games
+  
+* huncards-full.svg
+* xskat.svg
+  * from Luciano Montanaro
+  * http://www.cirulla.net/listing/kde_stuff/card-decks/

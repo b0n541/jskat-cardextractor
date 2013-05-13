@@ -45,7 +45,10 @@ public class SaveAsSeparateCards {
 						+ String.valueOf(conf.rowSymbols.charAt(xCard))
 						+ ".png";
 
-				OutputStream ostream = new FileOutputStream(cardName);
+				OutputStream ostream = new FileOutputStream(
+						System.getProperty("java.io.tmpdir")
+								+ System.getProperty("file.separator")
+								+ cardName);
 				TranscoderOutput output = new TranscoderOutput(ostream);
 
 				int cardWidth = conf.width / conf.columns;

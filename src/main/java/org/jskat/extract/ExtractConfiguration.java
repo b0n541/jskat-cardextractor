@@ -4,7 +4,7 @@ public enum ExtractConfiguration {
 
 	DONDORF_FRENCH(
 			"src/main/resources/org/jskat/samples/fixed/dondorf_french.svg",
-			1027, 615, 1, 5, 13, "A23456789TJQK", "CDHSB"),
+			1027, 615, 2, 5, 13, "A23456789TJQK", "CDHSB"),
 
 	ISS_GERMAN("src/main/resources/org/jskat/samples/fixed/iss_german.svg",
 			1027, 615, 2, 5, 13, "A23456789TJQK", "CDHSB"),

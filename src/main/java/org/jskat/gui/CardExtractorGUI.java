@@ -30,9 +30,6 @@ import org.jskat.extract.SaveAsSeparateCards;
 
 public class CardExtractorGUI extends JFrame {
 
-	// The "Load" button, which displays up a file chooser upon clicking.
-	protected JButton loadButton = new JButton("Load...");
-
 	// Starts the extraction
 	protected JButton extractButton = new JButton("Extract cards...");
 
@@ -56,6 +53,8 @@ public class CardExtractorGUI extends JFrame {
 				System.exit(0);
 			}
 		});
+
+		loadSelectedCardSet();
 	}
 
 	public JComponent createComponents() {
@@ -67,29 +66,19 @@ public class CardExtractorGUI extends JFrame {
 		for (ExtractConfiguration conf : ExtractConfiguration.values()) {
 			cardSets.addItem(conf);
 		}
+		cardSets.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				loadSelectedCardSet();
+			}
+		});
 
 		p.add(cardSets);
-		p.add(loadButton);
 		p.add(extractButton);
 		p.add(label);
 
 		panel.add("North", p);
 		panel.add("Center", svgCanvas);
-
-		// Set the button action.
-		loadButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
-				ExtractConfiguration conf = (ExtractConfiguration) cardSets
-						.getSelectedItem();
-				File f = new File(conf.location);
-				try {
-					svgCanvas.setURI(f.toURL().toString());
-				} catch (IOException ex) {
-					ex.printStackTrace();
-				}
-			}
-		});
 
 		extractButton.addActionListener(new ActionListener() {
 			@Override
@@ -149,5 +138,16 @@ public class CardExtractorGUI extends JFrame {
 		});
 
 		return panel;
+	}
+
+	private void loadSelectedCardSet() {
+		ExtractConfiguration conf = (ExtractConfiguration) cardSets
+				.getSelectedItem();
+		File f = new File(conf.location);
+		try {
+			svgCanvas.setURI(f.toURL().toString());
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
 	}
 }

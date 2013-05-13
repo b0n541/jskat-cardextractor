@@ -39,8 +39,11 @@ public class SaveAsSeparateCards {
 		for (int yCard = 0; yCard < conf.columnSymbols.length(); yCard++) {
 			for (int xCard = 0; xCard < conf.rowSymbols.length(); xCard++) {
 
-				String cardName = conf.columnSymbols.charAt(yCard) + "-"
-						+ conf.rowSymbols.charAt(xCard) + ".png";
+				String cardName = String.valueOf(conf.columnSymbols
+						.charAt(yCard))
+						+ "-"
+						+ String.valueOf(conf.rowSymbols.charAt(xCard))
+						+ ".png";
 
 				OutputStream ostream = new FileOutputStream(cardName);
 				TranscoderOutput output = new TranscoderOutput(ostream);

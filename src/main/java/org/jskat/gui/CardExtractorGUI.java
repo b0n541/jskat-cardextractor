@@ -5,12 +5,14 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -34,6 +36,8 @@ public class CardExtractorGUI extends JFrame {
 	// Starts the extraction
 	protected JButton extractButton = new JButton("Extract cards...");
 
+	protected JComboBox<ExtractConfiguration> cardSets = new JComboBox<>();
+
 	// The status label.
 	protected JLabel label = new JLabel();
 
@@ -45,6 +49,13 @@ public class CardExtractorGUI extends JFrame {
 		setMinimumSize(new Dimension(600, 400));
 
 		setContentPane(createComponents());
+
+		this.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
 	}
 
 	public JComponent createComponents() {
@@ -52,6 +63,12 @@ public class CardExtractorGUI extends JFrame {
 		final JPanel panel = new JPanel(new BorderLayout());
 
 		JPanel p = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+		for (ExtractConfiguration conf : ExtractConfiguration.values()) {
+			cardSets.addItem(conf);
+		}
+
+		p.add(cardSets);
 		p.add(loadButton);
 		p.add(extractButton);
 		p.add(label);
@@ -63,15 +80,13 @@ public class CardExtractorGUI extends JFrame {
 		loadButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				JFileChooser fc = new JFileChooser(".");
-				int choice = fc.showOpenDialog(panel);
-				if (choice == JFileChooser.APPROVE_OPTION) {
-					File f = fc.getSelectedFile();
-					try {
-						svgCanvas.setURI(f.toURL().toString());
-					} catch (IOException ex) {
-						ex.printStackTrace();
-					}
+				ExtractConfiguration conf = (ExtractConfiguration) cardSets
+						.getSelectedItem();
+				File f = new File(conf.location);
+				try {
+					svgCanvas.setURI(f.toURL().toString());
+				} catch (IOException ex) {
+					ex.printStackTrace();
 				}
 			}
 		});
@@ -83,7 +98,8 @@ public class CardExtractorGUI extends JFrame {
 				SaveAsSeparateCards saveAsSeparateCards = new SaveAsSeparateCards();
 				try {
 					saveAsSeparateCards
-							.convertAllCards(ExtractConfiguration.ISS_TOURNAMENT);
+							.convertAllCards((ExtractConfiguration) cardSets
+									.getSelectedItem());
 				} catch (TranscoderException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

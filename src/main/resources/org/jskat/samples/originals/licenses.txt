@@ -17,3 +17,9 @@
 * xskat.svg
   * from Luciano Montanaro
   * http://www.cirulla.net/listing/kde_stuff/card-decks/
+
+* GG.svg
+* E2.svg
+* E4.svg
+  * from International Skat Server (ISS)
+  * Public domain

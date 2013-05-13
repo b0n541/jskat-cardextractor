@@ -6,6 +6,10 @@ public enum ExtractConfiguration {
 			"src/main/resources/org/jskat/samples/fixed/dondorf_french.svg",
 			1027, 615, 2, 5, 13, "A23456789TJQK", "CDHSB"),
 
+	DONDORF_TOURNAMENT(
+			"src/main/resources/org/jskat/samples/fixed/dondorf_tournament.svg",
+			1027, 615, 2, 5, 13, "A23456789TJQK", "CDHSB"),
+
 	ISS_GERMAN("src/main/resources/org/jskat/samples/fixed/iss_german.svg",
 			1027, 615, 2, 5, 13, "A23456789TJQK", "CDHSB"),
 

@@ -47,7 +47,7 @@ public class SaveAsSeparateCards {
 		SaveAsSeparateCards p = new SaveAsSeparateCards();
 
 		// String in =
-		// "src/main/resources/net/b0n541/samples/fixed/xskat_german.svg";
+		// "src/main/resources/org/jskat/samples/fixed/xskat_german.svg";
 		// int documentWidth = 1872;
 		// int documentHeight = 1120;
 		// int xOffset = 0;
@@ -55,7 +55,7 @@ public class SaveAsSeparateCards {
 		// int scale = 1;
 
 		// String in =
-		// "src/main/resources/net/b0n541/samples/fixed/william-tell_german.svgz";
+		// "src/main/resources/org/jskat/samples/fixed/william-tell_german.svgz";
 		// int documentWidth = 1664;
 		// int documentHeight = 1005;
 		// int xOffset = 0;
@@ -63,7 +63,7 @@ public class SaveAsSeparateCards {
 		// int scale = 1;
 
 		// String in =
-		// "src/main/resources/net/b0n541/samples/fixed/dondorf_french.svg";
+		// "src/main/resources/org/jskat/samples/fixed/dondorf_french.svg";
 		// int documentWidth = 1027;
 		// int documentHeight = 615;
 		// int xOffset = 0;
@@ -71,7 +71,7 @@ public class SaveAsSeparateCards {
 		// int scale = 1;
 
 		// String in =
-		// "src/main/resources/net/b0n541/samples/fixed/ornamental_french"
+		// "src/main/resources/org/jskat/samples/fixed/ornamental_french"
 		// + ".svg";
 		// int documentWidth = 1807;
 		// int documentHeight = 945;
@@ -80,14 +80,14 @@ public class SaveAsSeparateCards {
 		// int scale = 1;
 
 		// String in =
-		// "src/main/resources/net/b0n541/samples/fixed/tango_french.svg";
+		// "src/main/resources/org/jskat/samples/fixed/tango_french.svg";
 		// int documentWidth = 1885;
 		// int documentHeight = 975;
 		// int xOffset = 0;
 		// int yOffset = 0;
 		// int scale = 1;
 
-		String in = "src/main/resources/net/b0n541/samples/fixed/tigullio-modern_tournament.svg";
+		String in = "src/main/resources/org/jskat/samples/fixed/tigullio-modern_tournament.svg";
 		int documentWidth = 820;
 		int documentHeight = 440;
 		int xOffset = 0;

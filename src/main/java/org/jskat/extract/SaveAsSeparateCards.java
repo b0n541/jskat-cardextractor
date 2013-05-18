@@ -1,40 +1,22 @@
 package org.jskat.extract;
 
 import java.awt.Rectangle;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import org.apache.batik.transcoder.SVGAbstractTranscoder;
 import org.apache.batik.transcoder.TranscoderException;
-import org.apache.batik.transcoder.TranscoderInput;
-import org.apache.batik.transcoder.TranscoderOutput;
-import org.apache.batik.transcoder.image.PNGTranscoder;
 
 public class SaveAsSeparateCards {
-
-	static PNGTranscoder trans = new PNGTranscoder();
-
-	public static void tile(TranscoderInput input, TranscoderOutput output,
-			Rectangle aoi, float scale) throws TranscoderException {
-		// Set hints to indicate the dimensions of the output image
-		// and the input area of interest.
-		trans.addTranscodingHint(SVGAbstractTranscoder.KEY_WIDTH, new Float(
-				aoi.width) * scale);
-		trans.addTranscodingHint(SVGAbstractTranscoder.KEY_HEIGHT, new Float(
-				aoi.height) * scale);
-		trans.addTranscodingHint(SVGAbstractTranscoder.KEY_AOI, aoi);
-
-		trans.transcode(input, output);
-	}
 
 	public static void convertAllCards(ExtractConfiguration conf)
 			throws TranscoderException, IOException {
 
-		// Transcode the file.
-		String svgURI = new File(conf.location).toURL().toString();
-		TranscoderInput input = new TranscoderInput(svgURI);
+		ExecutorService threadPool = Executors.newFixedThreadPool(Runtime
+				.getRuntime().availableProcessors() * 2);
+
+		int cardWidth = conf.width / conf.columns;
+		int cardHeight = conf.height / conf.rows;
 
 		for (int yCard = 0; yCard < conf.columnSymbols.length(); yCard++) {
 			for (int xCard = 0; xCard < conf.rowSymbols.length(); xCard++) {
@@ -45,24 +27,17 @@ public class SaveAsSeparateCards {
 						+ String.valueOf(conf.rowSymbols.charAt(xCard))
 						+ ".png";
 
-				OutputStream ostream = new FileOutputStream(
-						System.getProperty("java.io.tmpdir")
-								+ System.getProperty("file.separator")
-								+ cardName);
-				TranscoderOutput output = new TranscoderOutput(ostream);
+				Rectangle areaOfInterest = new Rectangle(cardWidth * xCard,
+						cardHeight * yCard, cardWidth, cardHeight);
 
-				int cardWidth = conf.width / conf.columns;
-				int cardHeight = conf.height / conf.rows;
-
-				tile(input, output, new Rectangle(cardWidth * xCard, cardHeight
-						* yCard, cardWidth, cardHeight), conf.scale);
-
-				// Flush and close the output.
-				ostream.flush();
-				ostream.close();
-
-				System.out.println(cardName + " created");
+				threadPool.execute(new CardExtractor(conf.location, cardName,
+						areaOfInterest, conf.scale));
 			}
 		}
+
+		threadPool.shutdown();
+		while (!threadPool.isTerminated()) {
+		}
+		System.out.println("Finished all threads");
 	}
 }

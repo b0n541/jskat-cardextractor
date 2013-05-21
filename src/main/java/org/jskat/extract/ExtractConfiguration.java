@@ -2,6 +2,10 @@ package org.jskat.extract;
 
 public enum ExtractConfiguration {
 
+	DONDORF_GERMAN(
+			"src/main/resources/org/jskat/samples/fixed/dondorf_german.svg",
+			1027, 615, 2, 5, 13, "A23456789TJQK", "CDHSB"),
+
 	DONDORF_FRENCH(
 			"src/main/resources/org/jskat/samples/fixed/dondorf_french.svg",
 			1027, 615, 2, 5, 13, "A23456789TJQK", "CDHSB"),

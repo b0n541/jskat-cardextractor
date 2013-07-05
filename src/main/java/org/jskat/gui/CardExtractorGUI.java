@@ -100,6 +100,12 @@ public class CardExtractorGUI extends JFrame {
 		});
 
 		// Set the JSVGCanvas listeners.
+		setJSVGCanvasListeners();
+
+		return panel;
+	}
+
+	private void setJSVGCanvasListeners() {
 		svgCanvas.addSVGDocumentLoaderListener(new SVGDocumentLoaderAdapter() {
 			@Override
 			public void documentLoadingStarted(SVGDocumentLoaderEvent e) {
@@ -136,8 +142,6 @@ public class CardExtractorGUI extends JFrame {
 				label.setText("");
 			}
 		});
-
-		return panel;
 	}
 
 	private void loadSelectedCardSet() {

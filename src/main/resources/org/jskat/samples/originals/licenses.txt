@@ -23,3 +23,16 @@
 * E4.svg
   * from International Skat Server (ISS)
   * Public domain
+  
+* oxygen-white.svg
+* margoth.svg
+  * from Open Clipart (openclipart.org)
+  * Public domain
+
+* ancient-egyptians.svgz
+* jolly-royal.svgz
+* oxygen-white.svgz
+* oxygen.svgz
+* penguins.svgz
+  * from KDE Games
+  * GNU General Public License

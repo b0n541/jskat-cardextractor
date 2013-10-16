@@ -26,12 +26,12 @@ public enum ExtractConfiguration {
 
 	ORNAMENTAL_FRENCH(
 			"src/main/resources/org/jskat/samples/fixed/ornamental_french.svg",
-			1807, 945, 2, 5, 13, "A23456789TJQK", "CDHSB"),
+			1807, 945, 1, 5, 13, "A23456789TJQK", "CDHSB"),
 
 	TANGO_FRENCH("src/main/resources/org/jskat/samples/fixed/tango_french.svg",
 			1885, 975, 1, 5, 13, "A23456789TJQK", "CDHSB"),
 
-	WILLIAM_TELL(
+	WILLIAMTELL_GERMAN(
 			"src/main/resources/org/jskat/samples/fixed/william-tell_german.svgz",
 			1664, 1005, 1, 5, 13, "AKQJT98765432", "HDSCB"),
 

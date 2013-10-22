@@ -31,7 +31,8 @@ public class CardConverter {
 						+ ".png";
 
 				Rectangle areaOfInterest = new Rectangle(cardWidth * xCard,
-						cardHeight * yCard, cardWidth, cardHeight);
+						cardHeight * yCard, cardWidth - conf.gap, cardHeight
+								- conf.gap);
 
 				threadPool.execute(new CardExtractor(gui, conf.location,
 						cardName, areaOfInterest, getScale(conf)));

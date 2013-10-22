@@ -16,26 +16,28 @@ public class CardConverter {
 		ExecutorService threadPool = Executors.newFixedThreadPool(Runtime
 				.getRuntime().availableProcessors() * 2);
 
-		int cardWidth = conf.width / conf.columns;
-		int cardHeight = conf.height / conf.rows;
+		int columns = conf.columnSymbols.length();
+		int rows = conf.rowSymbols.length();
+		int cardWidth = conf.width / columns;
+		int cardHeight = conf.height / rows;
 
-		gui.setTasks(conf.columns * conf.rows);
+		gui.setTasks(columns * rows);
 
-		for (int yCard = 0; yCard < conf.columnSymbols.length(); yCard++) {
-			for (int xCard = 0; xCard < conf.rowSymbols.length(); xCard++) {
+		for (int yCard = 0; yCard < columns; yCard++) {
+			for (int xCard = 0; xCard < rows; xCard++) {
 
-				String cardName = String.valueOf(conf.columnSymbols
-						.charAt(yCard))
+				String cardName = String.valueOf(conf.rowSymbols.charAt(xCard))
 						+ "-"
-						+ String.valueOf(conf.rowSymbols.charAt(xCard))
+						+ String.valueOf(conf.columnSymbols.charAt(yCard))
 						+ ".png";
 
-				Rectangle areaOfInterest = new Rectangle(cardWidth * xCard,
-						cardHeight * yCard, cardWidth - conf.gap, cardHeight
+				Rectangle areaOfInterest = new Rectangle(cardWidth * yCard,
+						cardHeight * xCard, cardWidth - conf.gap, cardHeight
 								- conf.gap);
 
 				threadPool.execute(new CardExtractor(gui, conf.location,
-						cardName, areaOfInterest, getScale(conf)));
+						cardName, areaOfInterest, getScale(conf.targetHeight,
+								conf.height, rows)));
 			}
 		}
 
@@ -45,7 +47,7 @@ public class CardConverter {
 		System.out.println("Finished all threads");
 	}
 
-	private static float getScale(ExtractConfiguration conf) {
-		return (float) conf.targetHeight / (conf.height / conf.rows);
+	private static float getScale(int targetHeight, int height, int rows) {
+		return (float) targetHeight / (height / rows);
 	}
 }

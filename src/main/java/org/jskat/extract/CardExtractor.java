@@ -13,6 +13,7 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.apache.batik.transcoder.TranscoderInput;
 import org.apache.batik.transcoder.TranscoderOutput;
 import org.apache.batik.transcoder.image.PNGTranscoder;
+import org.jskat.gui.CardExtractorGUI;
 
 public class CardExtractor implements Runnable {
 
@@ -20,11 +21,13 @@ public class CardExtractor implements Runnable {
 	final String cardName;
 	final Rectangle areaOfInterest;
 	final Float scale;
+	final CardExtractorGUI gui;
 
-	public CardExtractor(String svgFileLocation, String cardName,
-			Rectangle aoi, Float scale) throws MalformedURLException,
-			FileNotFoundException {
+	public CardExtractor(CardExtractorGUI gui, String svgFileLocation,
+			String cardName, Rectangle aoi, Float scale)
+			throws MalformedURLException, FileNotFoundException {
 
+		this.gui = gui;
 		this.svgFileLocation = svgFileLocation;
 		this.cardName = cardName;
 		this.areaOfInterest = aoi;
@@ -41,6 +44,8 @@ public class CardExtractor implements Runnable {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally {
+			gui.taskCompleted();
 		}
 	}
 

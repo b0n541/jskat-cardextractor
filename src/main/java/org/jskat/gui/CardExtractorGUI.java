@@ -16,6 +16,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
+import javax.swing.SwingWorker;
 
 import org.apache.batik.swing.JSVGCanvas;
 import org.apache.batik.swing.gvt.GVTTreeRendererAdapter;
@@ -25,21 +27,23 @@ import org.apache.batik.swing.svg.GVTTreeBuilderEvent;
 import org.apache.batik.swing.svg.SVGDocumentLoaderAdapter;
 import org.apache.batik.swing.svg.SVGDocumentLoaderEvent;
 import org.apache.batik.transcoder.TranscoderException;
+import org.jskat.extract.CardConverter;
 import org.jskat.extract.ExtractConfiguration;
-import org.jskat.extract.SaveAsSeparateCards;
 
 public class CardExtractorGUI extends JFrame {
 
 	// Starts the extraction
-	protected JButton extractButton = new JButton("Extract cards...");
+	private JButton extractButton = new JButton("Extract cards...");
 
-	protected JComboBox<ExtractConfiguration> cardSets = new JComboBox<>();
+	private JComboBox<ExtractConfiguration> cardSets = new JComboBox<>();
 
 	// The status label.
-	protected JLabel label = new JLabel();
+	private JLabel label = new JLabel();
+
+	private JProgressBar progressBar = new JProgressBar();
 
 	// The SVG canvas.
-	protected JSVGCanvas svgCanvas = new JSVGCanvas();
+	private JSVGCanvas svgCanvas = new JSVGCanvas();
 
 	public CardExtractorGUI() {
 		setTitle("Card Extractor");
@@ -76,26 +80,40 @@ public class CardExtractorGUI extends JFrame {
 		p.add(cardSets);
 		p.add(extractButton);
 		p.add(label);
+		p.add(progressBar);
 
 		panel.add("North", p);
 		panel.add("Center", svgCanvas);
 
+		final CardExtractorGUI gui = this;
+
 		extractButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				SaveAsSeparateCards saveAsSeparateCards = new SaveAsSeparateCards();
-				try {
-					saveAsSeparateCards
-							.convertAllCards((ExtractConfiguration) cardSets
-									.getSelectedItem());
-				} catch (TranscoderException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				extractButton.setEnabled(false);
+				SwingWorker<Void, Void> worker = new SwingWorker<Void, Void>() {
+					@Override
+					protected Void doInBackground() throws Exception {
+						CardConverter saveAsSeparateCards = new CardConverter();
+						try {
+							saveAsSeparateCards.convertAllCards(gui,
+									(ExtractConfiguration) cardSets
+											.getSelectedItem());
+						} catch (TranscoderException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						return null;
+					}
+
+					@Override
+					public void done() {
+					}
+				};
+				worker.execute();
 			}
 		});
 
@@ -152,6 +170,20 @@ public class CardExtractorGUI extends JFrame {
 			svgCanvas.setURI(f.toURL().toString());
 		} catch (IOException ex) {
 			ex.printStackTrace();
+		}
+	}
+
+	public void setTasks(int count) {
+		progressBar.setMinimum(0);
+		progressBar.setMaximum(count);
+		progressBar.setValue(0);
+	}
+
+	public void taskCompleted() {
+		progressBar.setValue(progressBar.getValue() + 1);
+
+		if (progressBar.getValue() == progressBar.getMaximum()) {
+			extractButton.setEnabled(true);
 		}
 	}
 }

@@ -31,6 +31,9 @@ public enum ExtractConfiguration {
 	TANGO_FRENCH("src/main/resources/org/jskat/samples/fixed/tango_french.svg",
 			1885, 975, "A23456789TJQK", "CDHSB", 4, 246),
 
+	UNO("src/main/resources/org/jskat/samples/fixed/uno.svg",
+			3362, 2882, "0123456789SRDW", "RYGBASDF", 0, 246),
+
 	WILLIAMTELL_GERMAN(
 			"src/main/resources/org/jskat/samples/fixed/william-tell_german.svgz",
 			1664, 1005, "AKQJT98765432", "HDSCB", 0, 246),
